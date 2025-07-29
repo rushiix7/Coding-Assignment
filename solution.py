@@ -1,4 +1,4 @@
-def is_permutation_in_text(pattern, text):
+def check(pattern, text):
     len_p = len(pattern)
     len_t = len(text)
 
@@ -35,4 +35,4 @@ T = int(input())
 for _ in range(T):
     pattern = input().strip()
     text = input().strip()
-    print(is_permutation_in_text(pattern, text))
+    print(check(pattern, text))
