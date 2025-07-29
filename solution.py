@@ -1,38 +1,28 @@
-def check(pattern, text):
-    len_p = len(pattern)
-    len_t = len(text)
-
-    if len_p > len_t:
+def check_function(pat, txt):
+    n, m = len(pat), len(txt)
+    if n > m:
         return "NO"
+        
+    freq_pat = [0] * 26
+    for c in pat:
+        freq_pat[ord(c) - ord('a')] += 1
+        
+    freq_win = [0] * 26
+    for c in txt[:n]:
+        freq_win[ord(c) - ord('a')] += 1
 
- 
-    pattern_count = [0] * 26
-    for ch in pattern:
-        pattern_count[ord(ch) - ord('a')] += 1
-
- 
-    window_count = [0] * 26
-    for ch in text[:len_p]:
-        window_count[ord(ch) - ord('a')] += 1
-
-    if pattern_count == window_count:
+    if freq_pat == freq_win:
         return "YES"
 
-
-    for i in range(len_p, len_t):
-        new_char = text[i]
-        old_char = text[i - len_p]
-
-        window_count[ord(new_char) - ord('a')] += 1
-        window_count[ord(old_char) - ord('a')] -= 1
-
-        if pattern_count == window_count:
+    for idx in range(n, m):
+        freq_win[ord(txt[idx]) - ord('a')] += 1
+        freq_win[ord(txt[idx - n]) - ord('a')] -= 1
+        if freq_win == freq_pat:
             return "YES"
-
     return "NO"
 
-T = int(input())
-for _ in range(T):
-    pattern = input().strip()
-    text = input().strip()
-    print(check(pattern, text))
+tests = int(input())
+for _ in range(tests):
+    pat = input().strip()
+    txt = input().strip()
+    print(check_function(pat, txt))
